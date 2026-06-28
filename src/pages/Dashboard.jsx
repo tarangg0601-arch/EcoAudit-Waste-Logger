@@ -1,31 +1,72 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { getWasteEntries } from "../services/database";
+import { FaSearch } from "react-icons/fa";
+
 import Navbar from "../components/Navbar";
 import WasteCard from "../components/WasteCard";
+
+import {
+  getWasteEntries,
+  deleteWasteEntry,
+} from "../services/database";
+import "../styles/Dashboard.css";
 
 function Dashboard() {
   const [wasteEntries, setWasteEntries] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
+
   useEffect(() => {
     loadWasteEntries();
+    
   }, []);
 
   async function loadWasteEntries() {
-    const data = await getWasteEntries();
-    setWasteEntries(data);
-    setLoading(false);
-  }
+  setLoading(true);
 
-  const totalWeight = wasteEntries.reduce(
-    (sum, item) => sum + item.weight,
-    0
+  const data = await getWasteEntries();
+
+  setWasteEntries(data);
+
+  setLoading(false);
+}
+  async function handleDelete(id) {
+  const confirmDelete = window.confirm(
+    "Are you sure you want to delete this waste entry?"
   );
 
-  const totalCategories = new Set(
-    wasteEntries.map((item) => item.category)
-  ).size;
+  if (!confirmDelete) return;
+
+  await deleteWasteEntry(id);
+
+  loadWasteEntries();
+}
+
+  const filteredEntries = useMemo(() => {
+  return wasteEntries.filter((entry) => {
+    const matchesCategory =
+      selectedCategory === "All" ||
+      entry.category === selectedCategory;
+
+    const matchesSearch =
+      entry.category
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+
+    return matchesCategory && matchesSearch;
+  });
+}, [wasteEntries, searchTerm, selectedCategory]);
+
+const totalWeight = filteredEntries.reduce(
+  (sum, item) => sum + Number(item.weight),
+  0
+);
+
+const totalCategories = new Set(
+  filteredEntries.map((item) => item.category)
+).size;
 
   return (
     <>
@@ -210,6 +251,71 @@ function Dashboard() {
                 </button>
               </Link>
             </div>
+            
+            <div
+  style={{
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    gap: "20px",
+    marginBottom: "40px",
+    flexWrap: "wrap",
+  }}
+>
+  <div
+    style={{
+      display: "flex",
+      alignItems: "center",
+      background: "#2b2f3b",
+      borderRadius: "12px",
+      padding: "12px 18px",
+      flex: 1,
+      minWidth: "280px",
+    }}
+  >
+    <FaSearch
+      style={{
+        color: "#38d26f",
+        marginRight: "12px",
+      }}
+    />
+
+    <input
+      type="text"
+      placeholder="Search category..."
+      value={searchTerm}
+      onChange={(e) => setSearchTerm(e.target.value)}
+      style={{
+        background: "transparent",
+        border: "none",
+        outline: "none",
+        color: "white",
+        width: "100%",
+        fontSize: "17px",
+      }}
+    />
+  </div>
+
+  <select
+    value={selectedCategory}
+    onChange={(e) => setSelectedCategory(e.target.value)}
+    style={{
+      background: "#2b2f3b",
+      color: "white",
+      border: "none",
+      borderRadius: "12px",
+      padding: "14px 18px",
+      fontSize: "17px",
+      cursor: "pointer",
+      minWidth: "220px",
+    }}
+  >
+    <option value="All">All Categories</option>
+    <option value="Plastic">Plastic</option>
+    <option value="Organic">Organic</option>
+    <option value="E-Waste">E-Waste</option>
+  </select>
+</div>
 
             {/* Recent Waste Entries */}
 
@@ -231,7 +337,7 @@ function Dashboard() {
                 Recent Waste Entries
               </h2>
 
-              {wasteEntries.length === 0 ? (
+              {filteredEntries.length === 0 ? (
                 <p
                   style={{
                     color: "#9ca3af",
@@ -242,14 +348,15 @@ function Dashboard() {
                   No waste entries found.
                 </p>
               ) : (
-                wasteEntries
-                  .slice()
-                  .reverse()
-                  .map((entry) => (
+                filteredEntries
+  .slice()
+  .reverse()
+  .map((entry) => (
                     <WasteCard
-                      key={entry.id}
-                      entry={entry}
-                    />
+    key={entry.id}
+    entry={entry}
+    onDelete={handleDelete}
+/>
                   ))
               )}
             </div>

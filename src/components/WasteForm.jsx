@@ -6,21 +6,50 @@ function WasteForm() {
   const [weight, setWeight] = useState("");
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  const wasteData = {
-    category,
-    weight: Number(weight),
-    createdAt: new Date(),
+    if (!navigator.geolocation) {
+      alert("Geolocation is not supported by your browser.");
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        try {
+          console.log("Latitude:", position.coords.latitude);
+          console.log("Longitude:", position.coords.longitude);
+
+          const wasteData = {
+            category,
+            weight: Number(weight),
+            createdAt: new Date(),
+
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          };
+          console.log("Sending to Firestore:", wasteData);
+
+          await addWasteEntry(wasteData);
+
+          alert("Waste entry added successfully!");
+
+          setCategory("");
+          setWeight("");
+        } catch (error) {
+          console.error(error);
+          alert("Error saving waste entry.");
+        }
+      },
+
+      (error) => {
+        console.error(error);
+
+        alert(
+          "Location permission is required to submit a waste entry."
+        );
+      }
+    );
   };
-
-  await addWasteEntry(wasteData);
-
-  alert("Waste entry added successfully!");
-
-  setCategory("");
-  setWeight("");
-};
 
   return (
     <form onSubmit={handleSubmit}>
