@@ -1,16 +1,275 @@
-# React + Vite
+# 🌿 EcoAudit Waste Logger
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A modern React + Firebase web application for logging, managing, and analyzing waste disposal records. The project enables users to record waste entries, capture their current location, visualize waste statistics through charts, and manage records with an intuitive dashboard.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Live Demo
 
-## React Compiler
+🔗 **Live Website:** https://eco-audit-waste-logger.vercel.app
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+🔗 **GitHub Repository:** https://github.com/tarangg0601-arch/EcoAudit-Waste-Logger
 
-## Expanding the Oxlint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+# 📌 Project Overview
+
+EcoAudit Waste Logger is designed to simplify waste tracking and encourage better waste management practices.
+
+The application allows users to:
+
+- Record different categories of waste
+- Store disposal location using GPS
+- View waste statistics
+- Search and filter waste records
+- Delete unnecessary records
+- Open disposal locations directly in Google Maps
+
+All records are securely stored in Firebase Firestore and are accessible through a clean and responsive dashboard.
+
+---
+
+# ✨ Features
+
+### 📝 Waste Management
+
+- Add Waste Entry
+- Delete Waste Entry
+- Real-time Firestore Storage
+- Automatic Timestamp Recording
+
+### 📍 Geolocation
+
+- Capture Current Location
+- Store Latitude & Longitude
+- Open Saved Location in Google Maps
+
+### 📊 Dashboard Analytics
+
+- Dashboard Summary
+- Total Waste Entries
+- Total Categories
+- Total Waste Weight
+
+### 📈 Data Visualization
+
+- Pie Chart (Waste Distribution)
+- Bar Chart (Weight by Category)
+
+### 🔍 Search & Filtering
+
+- Search Waste Category
+- Filter by Waste Category
+
+### 🎨 User Interface
+
+- Modern Dark Theme
+- Responsive Design
+- Hover Effects
+- Professional Dashboard Layout
+- Sticky Navigation Bar
+- Footer
+
+### ☁ Deployment
+
+- Hosted on Vercel
+- Connected with GitHub for Automatic Deployment
+
+---
+
+# 🛠 Tech Stack
+
+## Frontend
+
+- React.js
+- Vite
+- React Router DOM
+- React Icons
+
+## Backend
+
+- Firebase Firestore
+
+## Charts
+
+- Recharts
+
+## Deployment
+
+- Vercel
+
+---
+
+# 📂 Project Structure
+
+```
+EcoAudit-Waste-Logger
+│
+├── public/
+├── src/
+│   ├── assets/
+│   ├── components/
+│   │   ├── Analytics.jsx
+│   │   ├── BarCharts.jsx
+│   │   ├── Navbar.jsx
+│   │   ├── PieCharts.jsx
+│   │   ├── SummaryCard.jsx
+│   │   ├── WasteCard.jsx
+│   │   └── WasteForm.jsx
+│   │
+│   ├── firebase/
+│   │   └── firebaseConfig.js
+│   │
+│   ├── pages/
+│   │   ├── Dashboard.jsx
+│   │   └── AddWaste.jsx
+│   │
+│   ├── services/
+│   │   └── database.js
+│   │
+│   ├── styles/
+│   ├── App.jsx
+│   └── main.jsx
+│
+├── package.json
+├── README.md
+└── vite.config.js
+```
+
+---
+
+# ⚙ Installation
+
+Clone the repository
+
+```bash
+git clone https://github.com/tarangg0601-arch/EcoAudit-Waste-Logger.git
+```
+
+Move into the project
+
+```bash
+cd EcoAudit-Waste-Logger
+```
+
+Install dependencies
+
+```bash
+npm install
+```
+
+Run the development server
+
+```bash
+npm run dev
+```
+
+Build for production
+
+```bash
+npm run build
+```
+
+---
+
+# 🔥 Firebase Configuration
+
+Create a Firebase project.
+
+Enable **Cloud Firestore**.
+
+Replace the Firebase configuration inside:
+
+```
+src/firebase/firebaseConfig.js
+```
+
+with your own Firebase credentials.
+
+---
+
+# 📊 Database Schema
+
+Each waste entry contains:
+
+| Field | Type |
+|--------|------|
+| category | String |
+| weight | Number |
+| latitude | Number |
+| longitude | Number |
+| createdAt | Timestamp |
+
+---
+
+# 📸 Screenshots
+
+## Dashboard
+
+> Add dashboard screenshot here.
+
+---
+
+## Analytics
+
+> Add analytics screenshot here.
+
+---
+
+## Waste Entries
+
+> Add waste card screenshot here.
+
+---
+
+## Add Waste Form
+
+> Add add-waste page screenshot here.
+
+---
+
+# 🌍 Future Enhancements
+
+- User Authentication
+- Admin Dashboard
+- Waste Collection Scheduling
+- AI-based Waste Classification
+- Image Upload Support
+- PDF/CSV Report Export
+- Email Notifications
+- Mobile Application
+- Real-time Analytics
+- Waste Prediction using Machine Learning
+
+---
+
+# 🎯 Learning Outcomes
+
+Through this project, the following concepts were implemented:
+
+- React Components
+- React Hooks
+- React Router
+- Firebase Firestore
+- CRUD Operations
+- Geolocation API
+- Google Maps Integration
+- Data Visualization
+- Responsive UI Design
+- Deployment using Vercel
+
+---
+
+# 👨‍💻 Author
+
+**Tarang Gupta**
+
+Engineering Student
+
+---
+
+# 📄 License
+
+This project is developed for educational purposes.
+
+© 2026 EcoAudit Waste Logger. All Rights Reserved.
