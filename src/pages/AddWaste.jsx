@@ -1,11 +1,14 @@
 import { Link } from "react-router-dom";
+import WasteForm from "../components/WasteForm";
 
 function AddWaste() {
   return (
     <div>
       <h1>Add Waste</h1>
 
-      <p>This page will contain the waste entry form.</p>
+      <WasteForm />
+
+      <br />
 
       <Link to="/">
         <button>Back to Dashboard</button>

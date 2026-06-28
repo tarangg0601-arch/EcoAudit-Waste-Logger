@@ -1,0 +1,49 @@
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:18px 40px;
+
+    background:#1b1f2a;
+
+    border-bottom:2px solid #2ecc71;
+}
+
+.logo{
+
+    color:#2ecc71;
+
+    font-size:26px;
+
+    font-weight:bold;
+}
+
+.nav-links{
+
+    display:flex;
+
+    gap:15px;
+}
+
+.nav-links button{
+
+    padding:10px 18px;
+
+    border:none;
+
+    border-radius:8px;
+
+    background:#2ecc71;
+
+    color:white;
+
+    cursor:pointer;
+
+    transition:.25s;
+}
+
+.nav-links button:hover{
+
+    background:#27ae60;
+}
