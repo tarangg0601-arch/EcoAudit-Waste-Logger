@@ -4,6 +4,8 @@ import { FaSearch } from "react-icons/fa";
 
 import Navbar from "../components/Navbar";
 import WasteCard from "../components/WasteCard";
+import Analytics from "../components/Analytics";
+import Footer from "../components/Footer";
 
 import {
   getWasteEntries,
@@ -135,14 +137,26 @@ const totalCategories = new Set(
             >
               {/* Total Entries */}
               <div
-                style={{
-                  background: "#2b2f3b",
-                  borderRadius: "18px",
-                  padding: "40px",
-                  textAlign: "center",
-                  boxShadow: "0 8px 18px rgba(0,0,0,0.3)",
-                }}
-              >
+  style={{
+    background: "#2b2f3b",
+    borderRadius: "18px",
+    padding: "40px",
+    textAlign: "center",
+    boxShadow: "0 8px 18px rgba(0,0,0,0.3)",
+    transition: "0.3s",
+    cursor: "pointer",
+  }}
+  onMouseEnter={(e) => {
+    e.currentTarget.style.transform = "translateY(-8px)";
+    e.currentTarget.style.boxShadow =
+      "0 15px 30px rgba(0,0,0,0.45)";
+  }}
+  onMouseLeave={(e) => {
+    e.currentTarget.style.transform = "translateY(0)";
+    e.currentTarget.style.boxShadow =
+      "0 8px 18px rgba(0,0,0,0.3)";
+  }}
+>
                 <h3
                   style={{
                     color: "#c5ced8",
@@ -166,14 +180,26 @@ const totalCategories = new Set(
 
               {/* Categories */}
               <div
-                style={{
-                  background: "#2b2f3b",
-                  borderRadius: "18px",
-                  padding: "40px",
-                  textAlign: "center",
-                  boxShadow: "0 8px 18px rgba(0,0,0,0.3)",
-                }}
-              >
+  style={{
+    background: "#2b2f3b",
+    borderRadius: "18px",
+    padding: "40px",
+    textAlign: "center",
+    boxShadow: "0 8px 18px rgba(0,0,0,0.3)",
+    transition: "0.3s",
+    cursor: "pointer",
+  }}
+  onMouseEnter={(e) => {
+    e.currentTarget.style.transform = "translateY(-8px)";
+    e.currentTarget.style.boxShadow =
+      "0 15px 30px rgba(0,0,0,0.45)";
+  }}
+  onMouseLeave={(e) => {
+    e.currentTarget.style.transform = "translateY(0)";
+    e.currentTarget.style.boxShadow =
+      "0 8px 18px rgba(0,0,0,0.3)";
+  }}
+>
                 <h3
                   style={{
                     color: "#c5ced8",
@@ -197,14 +223,26 @@ const totalCategories = new Set(
 
               {/* Total Weight */}
               <div
-                style={{
-                  background: "#2b2f3b",
-                  borderRadius: "18px",
-                  padding: "40px",
-                  textAlign: "center",
-                  boxShadow: "0 8px 18px rgba(0,0,0,0.3)",
-                }}
-              >
+  style={{
+    background: "#2b2f3b",
+    borderRadius: "18px",
+    padding: "40px",
+    textAlign: "center",
+    boxShadow: "0 8px 18px rgba(0,0,0,0.3)",
+    transition: "0.3s",
+    cursor: "pointer",
+  }}
+  onMouseEnter={(e) => {
+    e.currentTarget.style.transform = "translateY(-8px)";
+    e.currentTarget.style.boxShadow =
+      "0 15px 30px rgba(0,0,0,0.45)";
+  }}
+  onMouseLeave={(e) => {
+    e.currentTarget.style.transform = "translateY(0)";
+    e.currentTarget.style.boxShadow =
+      "0 8px 18px rgba(0,0,0,0.3)";
+  }}
+>
                 <h3
                   style={{
                     color: "#c5ced8",
@@ -233,6 +271,7 @@ const totalCategories = new Set(
                 marginBottom: "70px",
               }}
             >
+            
               <Link to="/add">
                 <button
                   style={{
@@ -245,13 +284,21 @@ const totalCategories = new Set(
                     cursor: "pointer",
                     fontWeight: "600",
                     boxShadow: "0 6px 18px rgba(50,210,111,0.35)",
+                    transition: "0.3s",
                   }}
+                  onMouseEnter={(e) => {
+  e.currentTarget.style.transform = "scale(1.05)";
+}}
+
+onMouseLeave={(e) => {
+  e.currentTarget.style.transform = "scale(1)";
+}}
                 >
                   + Add Waste Entry
                 </button>
               </Link>
             </div>
-            
+            <Analytics wasteEntries={filteredEntries} />
             <div
   style={{
     display: "flex",
@@ -282,7 +329,7 @@ const totalCategories = new Set(
 
     <input
       type="text"
-      placeholder="Search category..."
+      placeholder="Search waste category..."
       value={searchTerm}
       onChange={(e) => setSearchTerm(e.target.value)}
       style={{
@@ -338,19 +385,40 @@ const totalCategories = new Set(
               </h2>
 
               {filteredEntries.length === 0 ? (
-                <p
-                  style={{
-                    color: "#9ca3af",
-                    textAlign: "center",
-                    fontSize: "18px",
-                  }}
-                >
-                  No waste entries found.
-                </p>
-              ) : (
+  <div
+    style={{
+      textAlign: "center",
+      padding: "50px",
+      color: "#9ca3af",
+    }}
+  >
+    <h2
+      style={{
+        color: "#ffffff",
+        marginBottom: "15px",
+      }}
+    >
+      📦 No Waste Records Found
+    </h2>
+
+    <p
+      style={{
+        fontSize: "18px",
+        lineHeight: "1.7",
+      }}
+    >
+      Try changing the search or filter,
+      <br />
+      or click <strong>+ Add Waste Entry</strong> to create your first record.
+    </p>
+  </div>
+) : (
                 filteredEntries
   .slice()
-  .reverse()
+.sort((a, b) => {
+  if (!a.createdAt || !b.createdAt) return 0;
+  return b.createdAt.seconds - a.createdAt.seconds;
+})
   .map((entry) => (
                     <WasteCard
     key={entry.id}
@@ -363,6 +431,7 @@ const totalCategories = new Set(
           </>
         )}
       </div>
+      <Footer />
     </>
   );
 }
