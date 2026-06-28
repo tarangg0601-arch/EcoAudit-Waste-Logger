@@ -206,27 +206,25 @@ Each waste entry contains:
 
 ## Dashboard
 
-> Add dashboard screenshot here.
+![Dashboard](screenshots/dashboard.png)
 
 ---
 
 ## Analytics
 
-> Add analytics screenshot here.
+![Analytics](screenshots/analytics.png)
 
 ---
 
 ## Waste Entries
 
-> Add waste card screenshot here.
+![Waste Entries](screenshots/waste-cards.png)
 
 ---
 
 ## Add Waste Form
 
-> Add add-waste page screenshot here.
-
----
+![Add Waste](screenshots/add-waste.png)
 
 # 🌍 Future Enhancements
 
